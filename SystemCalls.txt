@@ -1,0 +1,68 @@
+fork:
+creates  a  new  process  by  duplicating the calling process.  The new process is referred to as the 
+child process.  The calling  process  is  referred  to  as  the  parent process.
+Parameter: void
+Return type: pid_t
+1) System Calls Understanding:
+
+stat:
+These functions return information about a file, in the buffer pointed to by buf.
+stat() and fstatat() retrieve information about the file pointed to by pathname; the  differences for fstatat() are described below.
+Parameter: const char *pathname, struct stat *buf
+Return type: int
+
+kill:
+The kill() system call can be used to send any signal to any process group or process.  
+Parameter: pid_t pid, int sig
+Return type: int
+
+mmap:
+mmap()  creates  a  new  mapping in the virtual address space of the calling process. The starting address 
+for the new mapping is specified in addr.  The length argument specifies the length of the mapping.
+Parameter: void *addr, size_t length, int prot, int flags, int fd, off_t offset
+Return type: void
+
+chmod:
+The  chmod() and fchmod() system calls change the permissions of a file.  They differ only in how the file 
+is specified.
+Parameter: const char *pathname, mode_t mode
+Return type: int
+
+waitpid:
+The  waitpid()  system call suspends execution of the calling process until a child specified by 
+pid argument has changed state.  By default, waitpid() waits only  for  terminated children, but this 
+behavior is modifiable via the options argument.
+Parameter: pid_t pid, int *status, int options
+Return type: pid_t
+
+2) System Calls Fail:
+
+fork: 
+The  caller  is  operating  under the SCHED_DEADLINE scheduling policy and does not have the reset-on-fork 
+flag set.
+
+exec:
+If the filename is too long the system call fails.
+
+unlink:
+The pathname refers to a directory.
+
+read:
+fd refers to a directory.
+
+mount:
+Pathname is longer than MAXPATHLEN.
+
+chmod:
+File does not exist.
+
+kill:
+The pid or process group does not exist.
+
+3) Trap:
+
+A trap instruction is caused by an exceptional condition. It results in a switch to the kernel mode, where the OS performs some action, it returns back to user mode after the operations are done.
+It acts like a function call but jumps onto a specific address in low memory (kernel space) and switches into kernel mode.
+It switches between kernel and user mode.
+
+
